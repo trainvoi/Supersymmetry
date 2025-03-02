@@ -229,8 +229,7 @@ class ChangeFlags {
         Rutile.addFlags("generate_concentrate");
         setupSlurries(Sphalerite)
         setupSlurries(Pollucite)
-        Pentlandite.addFlags("generate_sifted", "generate_flotated");
-        setupSlurries(Pentlandite)
+        setupSlurries(Arsenopyrite)
 
         setupFluidType(PolyvinylAcetate, FluidStorageKeys.LIQUID, 385)
 
