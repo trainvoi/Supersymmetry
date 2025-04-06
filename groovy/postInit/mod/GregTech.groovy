@@ -1180,13 +1180,6 @@ RecyclingHelper.addShaped('gregtech:electrolytic_cell', metaitem('electrolytic_c
         [ore('circuitLv'), ore('cableGtSingleTin'), ore('circuitLv')]
 ])
 
-// Prospector
-crafting.addShaped('gregtech:prospector_lead_acid', metaitem('prospector.lv'), [
-        [metaitem('emitter.lv'), ore('plateSteel'), metaitem('sensor.lv')],
-        [ore('circuitLv'), ore('plateGlass'), ore('circuitLv')],
-        [ore('plateSteel'), metaitem('battery.lead_acid'), ore('plateSteel')]
-])
-
 LATEX_COLLECTOR = recipemap('latex_collector')
 
 LATEX_COLLECTOR.recipeBuilder()
@@ -1293,33 +1286,76 @@ RecyclingHelper.replaceShaped('gregtech:distillation_tower', metaitem('distillat
 
 // Item Magnet with Lead Acid battery
 
-crafting.replaceShaped('gregtech:lv_magnet_lead_acid', metaitem('item_magnet.lv'), [
+crafting.shapedBuilder()
+	.name('gregtech:lv_magnet_lead_acid') 
+	.output(metaitem('item_magnet.lv').withNbt(['MaxCharge': 120000L]))
+	.shape([
         [ore('stickSteelMagnetic'), ore('toolWrench'), ore('stickSteelMagnetic')],
-        [ore('stickSteelMagnetic'), metaitem('battery.lead_acid'), ore('stickSteelMagnetic')],
+        [ore('stickSteelMagnetic'), metaitem('battery.lead_acid').mark('battery'), ore('stickSteelMagnetic')],
         [ore('cableGtSingleTin'), ore('plateSteel'), ore('cableGtSingleTin')]
-])
-
+	])
+	.recipeFunction { output, inputs, info -> 
+        output.getTagCompound().setLong("Charge", inputs['battery'].getTagCompound().getLong("Charge"))
+    }
+	.register()
+	
 // Power Unit with Lead Acid Battery
 
-crafting.replaceShaped('gregtech:lv_power_unit_lead_acid', metaitem('power_unit.lv'), [
+crafting.shapedBuilder()
+	.name('gregtech:lv_power_unit_lead_acid') 
+	.output(metaitem('power_unit.lv').withNbt(['MaxCharge': 120000L]))
+	.shape([
         [ore('screwSteel'), null, ore('toolScrewdriver')],
         [ore('gearSmallSteel'), metaitem('electric.motor.lv'), ore('gearSmallSteel')],
-        [ore('plateSteel'), metaitem('battery.lead_acid'), ore('plateSteel')]
-])
+        [ore('plateSteel'), metaitem('battery.lead_acid').mark('battery'), ore('plateSteel')]
+	])
+	.recipeFunction { output, inputs, info -> 
+        output.getTagCompound().setLong("Charge", inputs['battery'].getTagCompound().getLong("Charge"))
+    }
+	.register()
+
+// Prospector's Scanner with Lead Acid battery
+
+crafting.shapedBuilder()
+    .name("gregtech:prospector_lead_acid")
+    .output(metaitem('prospector.lv').withNbt(['MaxCharge': 120000L]))
+	.shape([
+		[metaitem('emitter.lv'), ore('plateSteel'), metaitem('sensor.lv')],
+        [ore('circuitLv'), ore('plateGlass'), ore('circuitLv')],
+        [ore('plateSteel'), metaitem('battery.lead_acid').mark('battery'), ore('plateSteel')]
+	])
+    .recipeFunction { output, inputs, info -> 
+        output.getTagCompound().setLong("Charge", inputs['battery'].getTagCompound().getLong("Charge"))
+    }
+	.register()
 
 // NightVision Goggles with other batteries
 
-crafting.addShaped('gregtech:nightvision_lithium', metaitem('nightvision_goggles').withNbt([MaxCharge: 120000L]), [
-    [ore('circuitUlv'), metaitem('screwSteel'), ore('circuitUlv')],
-    [metaitem('ringRubber'), metaitem('battery.re.lv.lithium'), metaitem('ringRubber')],
-    [metaitem('lensGlass'), ore('toolScrewdriver'), metaitem('lensGlass')]
-])
+crafting.shapedBuilder()
+	.name('gregtech:nightvision_lithium')
+	.output(metaitem('nightvision_goggles').withNbt([MaxCharge: 120000L])) 
+	.shape([
+		[ore('circuitUlv'), metaitem('screwSteel'), ore('circuitUlv')],
+		[metaitem('ringRubber'), metaitem('battery.re.lv.lithium').mark('battery'), metaitem('ringRubber')],
+		[metaitem('lensGlass'), ore('toolScrewdriver'), metaitem('lensGlass')]
+	])
+	.recipeFunction { output, inputs, info -> 
+        ooutput.getTagCompound().setLong("Charge", inputs['battery'].getTagCompound().getLong("Charge"))
+    }
+	.register()
 
-crafting.addShaped('gregtech:nightvision_cadmium', metaitem('nightvision_goggles').withNbt([MaxCharge: 100000L]), [
-[ore('circuitUlv'), metaitem('screwSteel'), ore('circuitUlv')],
-    [metaitem('ringRubber'), metaitem('battery.re.lv.cadmium'), metaitem('ringRubber')],
-    [metaitem('lensGlass'), ore('toolScrewdriver'), metaitem('lensGlass')]
-])
+crafting.shapedBuilder()
+	.name('gregtech:nightvision_cadmium')
+	.output(metaitem('nightvision_goggles').withNbt([MaxCharge: 100000L])) 
+	.shape([
+		[ore('circuitUlv'), metaitem('screwSteel'), ore('circuitUlv')],
+		[metaitem('ringRubber'), metaitem('battery.re.lv.cadmium').mark('battery'), metaitem('ringRubber')],
+		[metaitem('lensGlass'), ore('toolScrewdriver'), metaitem('lensGlass')]
+	])
+	.recipeFunction { output, inputs, info -> 
+        output.getTagCompound().setLong("Charge", inputs['battery'].getTagCompound().getLong("Charge"))
+    }
+	.register()
 
 // Stone oredict stuff
 
