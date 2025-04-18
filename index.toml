@@ -1,11 +1,1 @@
 hash-format = "sha256"
-
-[[files]]
-file = "mods/icbm.pw.toml"
-hash = "390df4cc0c3633bf3e6603de34e53727838eb9e26c22567791fab97ee681ddc5"
-metafile = true
-
-[[files]]
-file = "mods/susycore.pw.toml"
-hash = "e21b5c6e9ef61301b6a0d35aba120709d669d551651c933004d2f4929339484d"
-metafile = true

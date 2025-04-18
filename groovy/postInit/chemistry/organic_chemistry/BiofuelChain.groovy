@@ -201,16 +201,15 @@ grade1Lipids.forEach { lipid ->
         .duration(120)
         .EUt(30)
         .buildAndRegister()
-
-    // Separation of Al2SiO5
-    SIFTER.recipeBuilder()
-        .fluidInputs(fluid('bleaching_lipid_mix') * 1000)
-        .outputs(metaitem('dustAluminiumSilicate'))
-        .fluidOutputs(fluid('bleached_lipid') * 1000)
-        .duration(20)
-        .EUt(30)
-        .buildAndRegister()
 }
+// Separation of Al2SiO5
+SIFTER.recipeBuilder()
+    .fluidInputs(fluid('bleaching_lipid_mix') * 1000)
+    .outputs(metaitem('dustAluminiumSilicate'))
+    .fluidOutputs(fluid('bleached_lipid') * 1000)
+    .duration(20)
+    .EUt(30)
+    .buildAndRegister()
 
 // Preheat the bleached lipid for the hydrotreating process
 FLUID_HEATER.recipeBuilder()
