@@ -10,6 +10,7 @@ ASSEMBLER = recipemap('assembler')
 FLUID_SOLIDIFIER = recipemap('fluid_solidifier')
 MIXER = recipemap('mixer')
 AUTOCLAVE = recipemap('autoclave')
+CHEMICAL_BATH = recipemap('chemical_bath')
 
 //REMOVALS
 
@@ -1956,3 +1957,95 @@ JET_WINGPACK.recipeBuilder()
         .fluidInputs(fluid('supreme_kerosene') * 1)
         .duration(80)
         .buildAndRegister()
+        
+def lamp_colors = [
+	'white',
+	'orange',
+	'magenta',
+	'light_blue',
+	'yellow',
+	'lime',
+	'pink',
+	'gray',
+	'cyan',
+	'purple',
+	'blue',
+	'brown',
+	'green',
+	'red',
+	'black',
+]       
+
+ASSEMBLER.recipeBuilder()
+        .inputs(metaitem('plateGlass') * 6)
+	.inputs(ore('gtLight'))
+	.inputs(ore('frameGtSteel'))
+	.outputs(item('gregtech:white_lamp') * 4)
+	.circuitMeta(1)
+	.duration(40)
+	.EUt(7)
+	.buildAndRegister()
+			
+ASSEMBLER.recipeBuilder()
+	.inputs(metaitem('plateGlass') * 6)
+	.inputs(ore('gtLight'))
+	.inputs(ore('frameGtAluminium'))
+	.outputs(item('gregtech:white_lamp') * 8)
+	.circuitMeta(1)
+	.duration(40)
+	.EUt(7)
+	.buildAndRegister()
+			
+ASSEMBLER.recipeBuilder()
+       .inputs(metaitem('plateGlass') * 6)
+        .inputs(ore('gtLight'))
+	.inputs(ore('frameGtStainlessSteel'))
+	.outputs(item('gregtech:white_lamp') * 16)
+	.circuitMeta(1)
+	.duration(40)
+	.EUt(7)
+	.buildAndRegister()
+			
+ASSEMBLER.recipeBuilder()
+	.inputs(metaitem('plateGlass') * 6) 
+	.inputs(ore('gtLight'))
+	.inputs(ore('frameGtTitanium'))
+	.outputs(item('gregtech:white_lamp') * 32)
+	.circuitMeta(1)
+	.duration(40)
+	.EUt(7)
+	.buildAndRegister()
+
+for(color in lamp_colors) {
+	for(int i = 0; i < 8; i++) {
+		mods.gregtech.assembler.removeByInput(7, [metaitem('plateGlass') * 6, item('minecraft:glowstone_dust'), metaitem('circuit.integrated').withNbt(['Configuration': i+1])], [fluid('dye_'+color) * 144 * 144])
+		mods.gregtech.assembler.removeByInput(7, [metaitem('plateGlass') * 6, item('minecraft:glowstone_dust'), metaitem('circuit.integrated').withNbt(['Configuration': i+9])], [fluid('dye_'+color) * 144 * 144])
+	}
+	if(color == 'white') { continue }
+	
+	CHEMICAL_BATH.recipeBuilder()
+			.fluidInputs(fluid('dye_'+color) * 18)
+			.inputs(item('gregtech:white_lamp')) 
+			.outputs(item('gregtech:'+color+'_lamp'))
+			.duration(10)
+			.EUt(7)
+			.buildAndRegister()
+       
+}
+
+
+//do this separately for light gray lamps because they are called silver for some reason?
+for(int i = 0; i < 8; i++) {
+	mods.gregtech.assembler.removeByInput(7, [metaitem('plateGlass') * 6, item('minecraft:glowstone_dust'), metaitem('circuit.integrated').withNbt(['Configuration': i+1])], [fluid('dye_light_gray') * 144 * 144])
+	mods.gregtech.assembler.removeByInput(7, [metaitem('plateGlass') * 6, item('minecraft:glowstone_dust'), metaitem('circuit.integrated').withNbt(['Configuration': i+9])], [fluid('dye_light_gray') * 144 * 144])
+}
+
+CHEMICAL_BATH.recipeBuilder()
+	.fluidInputs(fluid('dye_light_gray') * 18)
+	.inputs(item('gregtech:white_lamp')) 
+	.outputs(item('gregtech:silver_lamp'))
+        .duration(10)
+	.EUt(7)
+	.buildAndRegister()
+
+

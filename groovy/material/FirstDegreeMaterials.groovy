@@ -20,6 +20,9 @@ import gregtech.api.unification.material.properties.BlastProperty.GasTier;
 import static supersymmetry.api.unification.material.info.SuSyMaterialFlags.*;
 import static gregtech.api.fluids.FluidConstants.*;
 
+import supercritical.api.unification.material.properties.FissionFuelProperty;
+import supercritical.api.unification.material.properties.SCPropertyKey;
+
 
 public class FirstDegreeMaterials {
         
@@ -1770,13 +1773,7 @@ public class FirstDegreeMaterials {
                 .build();
 
 
-        ImpureCobaltOxide = new Material.Builder(8360, SuSyUtility.susyId('impure_cobalt_oxide'))
-                .dust()
-                .components(CobaltOxide)
-                .color(0xd6e600)
-                .build();
-
-        ImpureCobaltOxide.setFormula("(CoO)(?)", true)
+        // FREE ID: 8360
 
         CrudeTin = new Material.Builder(8361, SuSyUtility.susyId('crude_tin'))
                 .liquid(new FluidBuilder().temperature(600))
@@ -2062,10 +2059,11 @@ public class FirstDegreeMaterials {
         TreatedNeodymiumAlloy.getProperty(PropertyKey.INGOT).setMagneticMaterial(NeodymiumAlloyMagnetic);
 
         SamariumAlloy = new Material.Builder(8403, SuSyUtility.susyId('samarium_alloy'))
-                .dust().ingot().liquid(new FluidBuilder().temperature(800))
+                .dust().ingot()
                 .color(0xb3d683).iconSet(METALLIC)
                 .flags(GENERATE_ROD, GENERATE_LONG_ROD, GENERATE_RING, GENERATE_PLATE, NO_UNIFICATION)
                 .components(Samarium, Cobalt * 5)
+                .blastTemp(1800, GasTier.MID)
                 .build();
 
         TreatedSamariumAlloy = new Material.Builder(8404, SuSyUtility.susyId('treated_samarium_alloy'))
@@ -2221,7 +2219,11 @@ public class FirstDegreeMaterials {
                 .color(0xe8c3a5)
                 .build();
 
-        // FREE ID: 8426
+        HighPurityCobaltOxide = new Material.Builder(8426, SuSyUtility.susyId('high_purity_cobalt_oxide'))
+                .dust()
+                .components(Cobalt, Oxygen)
+                .color(0xe6f246)
+                .build();
 
         MustardGas = new Material.Builder(8427, SuSyUtility.susyId('mustard_gas'))
                 .liquid()
@@ -2684,13 +2686,7 @@ public class FirstDegreeMaterials {
                 .colorAverage()
                 .build();
 
-        CobaltSulfateSolution = new Material.Builder(8497, SuSyUtility.susyId("cobalt_sulfate_solution"))
-                .fluid()
-                .components(Cobalt, Sulfur, Oxygen * 4)
-                .colorAverage()
-                .build();
-
-        CobaltSulfateSolution.setFormula("(CoSO4)(H2O)", true)
+        // FREE ID: 8497
 
         NickelSulfate = new Material.Builder(8498, SuSyUtility.susyId('nickel_sulfate'))
                 .dust()
@@ -3244,24 +3240,22 @@ public class FirstDegreeMaterials {
                 .build();
 
         PhosphomolybdicAcid.setFormula("H3[PMo12O40]", true)
-        
-        UraniumDioxide = new Material.Builder(8588, SuSyUtility.susyId("uranium_dioxide"))
+
+        UraniumDioxide = new Material.Builder(8588, SuSyUtility.susyId('uranium_dioxide'))
+                .dust()
+                .iconSet(SAND)
+                .components(NaturalUranium, Oxygen * 2)
+                .color(0x5a7b6a)
+                .build();
+
+        DepletedUraniumDioxide = new Material.Builder(8589, SuSyUtility.susyId("depleted_uranium_dioxide"))
                 .dust()
                 .iconSet(SAND)
                 .components(Uranium238, Oxygen * 2)
                 .color(0x20291b)
                 .build();
 
-        UraniumDioxide.setFormula("UO2", true)
-
-        UraniumTetrafluoride = new Material.Builder(8589, SuSyUtility.susyId("uranium_tetrafluoride"))
-                .dust()
-                .iconSet(SAND)
-                .components(Uranium238, Fluorine * 4)
-                .color(0x58826a)
-                .build();
-
-        UraniumTetrafluoride.setFormula("UF4", true)
+        DepletedUraniumDioxide.setFormula("UO2", true)
 
         SiliconTetrachloride = new Material.Builder(8590, SuSyUtility.susyId('silicon_tetrachloride'))
                 .liquid()
@@ -3309,15 +3303,7 @@ public class FirstDegreeMaterials {
 
         ThalliumSulfateSolution.setFormula("(Tl2SO4)(H2O)", true)
 
-        ImpureCobaltSulfateSolution = new Material.Builder(8597, SuSyUtility.susyId("impure_cobalt_sulfate_solution"))
-                .liquid()
-                .components(Cobalt, Sulfur, Oxygen * 4, Water)
-                .colorAverage()
-                .build();
-
-        ImpureCobaltSulfateSolution.setFormula("(CoSO4)(?)(H2O)", true)
-
-        //FREE ID: 8598
+        //FREE ID: 8597-8598
 
         PurifiedCadmiumSolution = new Material.Builder(8599, SuSyUtility.susyId('purified_cadmium_solution'))
                 .liquid()
@@ -3666,5 +3652,144 @@ public class FirstDegreeMaterials {
                 .components(Potassium, Iodine, Oxygen * 3)
                 .colorAverage()
                 .build();
+
+        UraniumTetrafluoride = new Material.Builder(8649, SuSyUtility.susyId('uranium_tetrafluoride'))
+                .dust()
+                .iconSet(SAND)
+                .components(NaturalUranium, Fluorine * 4)
+                .color(0x5a7b6a)
+                .build();
+
+        NaturalUraniumHexafluoride = new Material.Builder(8650, SuSyUtility.susyId('natural_uranium_hexafluoride'))
+                .gas(new FluidBuilder().temperature(330))
+                .iconSet(SAND)
+                .components(NaturalUranium, Fluorine * 6)
+                .color(0x46ba30)
+                .build();
+
+        NaturalUraniumHexafluoride.setFormula("UF6", true);
+
+        LEU235Hexafluoride = new Material.Builder(8651, SuSyUtility.susyId('leu_235_hexafluoride'))
+                .gas(new FluidBuilder().temperature(330))
+                .iconSet(SAND)
+                .components(LEU235, Fluorine * 6)
+                .color(0x45c42d)
+                .build();
+
+        LEU235Hexafluoride.setFormula("UF6", true);
+
+        HALEU235Hexafluoride = new Material.Builder(8652, SuSyUtility.susyId('haleu_235_hexafluoride'))
+                .gas(new FluidBuilder().temperature(330))
+                .iconSet(SAND)
+                .components(HALEU235, Fluorine * 6)
+                .color(0xec225)
+                .build();
+
+        HALEU235Hexafluoride.setFormula("UF6", true);
+
+        HEU235Hexafluoride = new Material.Builder(8653, SuSyUtility.susyId('heu_235_hexafluoride'))
+                .gas(new FluidBuilder().temperature(330))
+                .iconSet(SAND)
+                .components(HEU235, Fluorine * 6)
+                .color(0x38bf1f)
+                .build();
+
+        HEU235Hexafluoride.setFormula("UF6", true);
+
+        WeaponsGradeUraniumHexafluoride = new Material.Builder(8654, SuSyUtility.susyId('weapons_grade_uranium_hexafluoride'))
+                .gas(new FluidBuilder().temperature(330))
+                .iconSet(SAND)
+                .components(WeaponsGradeUranium, Fluorine * 6)
+                .color(0x1ec200)
+                .build();
+
+        WeaponsGradeUraniumHexafluoride.setFormula("UF6", true);
+
+        // FREE ID: 8655
+
+        LEU235AmmoniumDiuranate = new Material.Builder(8656, SuSyUtility.susyId('leu_235_ammonium_diuranate'))
+                .dust()
+                .iconSet(SAND)
+                .components(LEU235, Nitrogen * 2, Hydrogen * 8, Oxygen * 7)
+                .color(0xe6cc22)
+                .build()
+
+        LEU235AmmoniumDiuranate.setFormula("(NH4)2U2O7", true);
+
+        HALEU235AmmoniumDiuranate = new Material.Builder(8657, SuSyUtility.susyId('haleu_235_ammonium_diuranate'))
+                .dust()
+                .iconSet(SAND)
+                .components(HALEU235, Nitrogen * 2, Hydrogen * 8, Oxygen * 7)
+                .color(0xe6cc22)
+                .build()
+        
+        HALEU235AmmoniumDiuranate.setFormula("(NH4)2U2O7", true);
+
+        HEU235AmmoniumDiuranate = new Material.Builder(8658, SuSyUtility.susyId('heu_235_ammonium_diuranate'))
+                .dust()
+                .iconSet(SAND)
+                .components(HEU235, Nitrogen * 2, Hydrogen * 8, Oxygen * 7)
+                .color(0x82f622)
+                .build()
+                
+        HEU235AmmoniumDiuranate.setFormula("(NH4)2U2O7", true);
+
+        WeaponsGradeAmmoniumDiuranate = new Material.Builder(8659, SuSyUtility.susyId('weapons_grade_ammonium_diuranate'))
+                .dust()
+                .iconSet(SAND)
+                .components(WeaponsGradeUranium, Nitrogen * 2, Hydrogen * 8, Oxygen * 7)
+                .color(0x62ff22)
+                .build()
+        
+        WeaponsGradeAmmoniumDiuranate.setFormula("(NH4)2U2O7", true);
+
+        DepletedAmmoniumDiuranate = new Material.Builder(8660, SuSyUtility.susyId('depleted_ammonium_diuranate'))
+                .dust()
+                .iconSet(SAND)
+                .components(Uranium238, Nitrogen * 2, Hydrogen * 8, Oxygen * 7)
+                .color(0xcfb029)
+                .build()
+        
+        DepletedAmmoniumDiuranate.setFormula("(NH4)2U2O7", true);
+
+        LEU235UraniumDioxide = new Material.Builder(8661, SuSyUtility.susyId('leu_235_uranium_dioxide'))
+                .dust()
+                .iconSet(SAND)
+                .components(LEU235, Oxygen * 2)
+                .color(0x1d2618)
+                .build()
+        
+        LEU235UraniumDioxide.setFormula("UO2", true);
+        LEU235UraniumDioxide.setProperty(SCPropertyKey.FISSION_FUEL, new FissionFuelProperty(1500, 750, 55.0, 1.0, 2500.0, 0.0, 3.5, LEU235UraniumDioxide.getRegistryName()));
+
+        HALEU235UraniumDioxide = new Material.Builder(8662, SuSyUtility.susyId('haleu_235_uranium_dioxide'))
+                .dust()
+                .iconSet(SAND)
+                .components(HALEU235, Oxygen * 2)
+                .color(0x1c2617)
+                .build()
+        
+        HALEU235UraniumDioxide.setFormula("UO2", true);
+        HALEU235UraniumDioxide.setProperty(SCPropertyKey.FISSION_FUEL, new FissionFuelProperty(1600, 700, 50.0, 1.0, 2700.0, 0.0, 3, HALEU235UraniumDioxide.getRegistryName()));
+
+        HEU235UraniumDioxide = new Material.Builder(8663, SuSyUtility.susyId('heu_235_uranium_dioxide'))
+                .dust()
+                .iconSet(SAND)
+                .components(HEU235, Oxygen * 2)
+                .color(0x273b1d)
+                .build()
+        
+        HEU235UraniumDioxide.setFormula("UO2", true);
+        HEU235UraniumDioxide.setProperty(SCPropertyKey.FISSION_FUEL, new FissionFuelProperty(1800, 600, 40.0, 1.0, 3000.0, 0.0, 2.5, HEU235UraniumDioxide.getRegistryName()));
+
+        WeaponsGradeUraniumDioxide = new Material.Builder(8664, SuSyUtility.susyId('weapons_grade_uranium_dioxide'))
+                .dust()
+                .iconSet(SAND)
+                .components(WeaponsGradeUranium, Oxygen * 2)
+                .color(0x2c4a1e)
+                .build()
+                .setFormula("UO2", true);
+
+        
     }
 }

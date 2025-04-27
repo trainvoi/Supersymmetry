@@ -2221,26 +2221,6 @@ ROASTER.recipeBuilder()
     .EUt(Globals.voltAmps[1])
     .buildAndRegister()
 
-// DicobaltOctacarbonyl
-
-ROASTER.recipeBuilder()
-    .inputs(ore('dustAnyPurityCobalt') * 2)
-    .fluidInputs(fluid('carbon_monoxide') * 8000)
-    .outputs(metaitem('dustDicobaltOctacarbonyl') * 18)
-    .duration(200)
-    .EUt(Globals.voltAmps[1])
-    .buildAndRegister()
-
-// Impregnated Alumina Catalyst
-
-ALLOY_SMELTER.recipeBuilder()
-    .inputs(ore('dustSilicaGel') * 3)
-    .inputs(ore('dustAlumina') * 5)
-    .outputs(metaitem('dustImpregnatedAluminaCatalyst') * 8)
-    .duration(200)
-    .EUt(Globals.voltAmps[1])
-    .buildAndRegister()
-
 // Copper Bismuth
 
 MIXER.recipeBuilder()

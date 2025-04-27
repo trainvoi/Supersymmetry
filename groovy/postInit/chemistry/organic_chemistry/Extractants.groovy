@@ -944,7 +944,7 @@ SIEVE_DT = recipemap('sieve_distillation')
 
     MIXER.recipeBuilder()
         .fluidInputs(fluid('aluminium') * 144)
-        .inputs(ore('dustCobalt'))
+        .inputs(ore('dustAnyPurityCobalt'))
         .inputs(ore('dustTinyZinc'))
         .outputs(metaitem('dustRaneyCobalt') * 2)
         .duration(200)
