@@ -570,7 +570,6 @@ class SuSyMaterials {
         public static Material ChlorinatedPGMConcentrate;
         public static Material PalladiumExtract;
         public static Material RhodiumIridiumSolution;
-        public static Material RhodiumIridiumExtractionMixture;
         public static Material CobaltMatte;
         public static Material OrthoCresylicAcidMixture;
         public static Material CresolNovolacsOligomer;
@@ -2085,6 +2084,19 @@ class SuSyMaterials {
         public static Material ColdAmmoniacalArgonHydrogenMixture;
         public static Material ColdArgonHydrogenMixture;
         public static Material PartiallyLiquefiedArgonHydrogenMixture;
+        public static Material TreatedLiquidNitrogen;
+        public static Material TreatedLiquidOxygen;
+        public static Material HeliumNeonConcentrate;
+        public static Material DehydrogenatedHeliumNeonConcentrate;
+        public static Material DemoisturizedHeliumNeonConcentrate;
+        public static Material CompressedHeliumNeonConcentrate;
+        public static Material HeliumNeonMixture;
+        public static Material KryptonXenonRichLiquid;
+        public static Material CombustedKryptonXenonConcentrate;
+        public static Material PurifiedKryptonXenonConcentrate;
+        public static Material LiquidCrudeXenon;
+        public static Material OxidizedXenon;
+        
 
         public static void changeFormulas() {
             log.infoMC("Changing Formulas!");
