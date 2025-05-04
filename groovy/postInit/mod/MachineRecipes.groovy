@@ -6,20 +6,21 @@ def name_removals = [
 	'gregtech:gregtech.machine.fisher.mv',
 	'gregtech:gregtech.machine.fisher.hv',
 	'gregtech:gregtech.machine.fisher.ev',
+	'gregtech:diesel_generator_lv',
+	'gregtech:diesel_generator_mv',
+	'gregtech:diesel_generator_hv'
 ]
 
 for (name in name_removals) {
 	crafting.remove(name)
 }
+
 mods.jei.ingredient.yeet(
 	metaitem('steam_turbine.mv'),
 	metaitem('steam_turbine.hv'),
 	metaitem('gas_turbine.lv'),
 	metaitem('gas_turbine.mv'),
 	metaitem('gas_turbine.hv'),
-	metaitem('combustion_generator.lv'),
-	metaitem('combustion_generator.mv'),
-	metaitem('combustion_generator.hv'),
 	metaitem('gcym:steam_engine'),
 	item('gcym:large_multiblock_casing:12'),
 	metaitem('large_turbine.steam'),
@@ -1201,4 +1202,84 @@ RecyclingHelper.addShaped("gregtech:sieve_distillation_tower", metaitem('sieve_d
 	[metaitem('frameStainlessSteel'),ore('circuitHv'),metaitem('frameStainlessSteel')],
 	[metaitem('springKanthal'),metaitem('hull.Hv'),metaitem('springKanthal')],
 	[metaitem('frameStainlessSteel'),metaitem('electric.pump.hv'),metaitem('frameStainlessSteel')]
+])
+
+// COMBUSTION ENGINES
+
+recipemap('assembler').recipeBuilder()
+		.inputs(metaitem('hull.Lv'))
+		.inputs(ore('springCopper'))
+		.inputs(ore('springSmallCopper'))
+		.inputs(ore('circuitLv'))
+		.inputs(metaitem('engine.spark_plug') * 4)
+		.inputs(metaitem('engine.piston') * 4)
+		.inputs(metaitem('engine.crankshaft'))
+		.inputs(ore('gearSteel') * 2)
+		.inputs(ore('pipeHugeFluidSteel'))
+		.outputs(metaitem('combustion_generator.lv'))
+		.EUt(30)
+		.duration(600)
+		.buildAndRegister()
+
+RecyclingHelper.handleRecycling(metaitem('combustion_generator.lv'), [
+		metaitem('hull.Lv'),
+		ore('springCopper'),
+		ore('springSmallCopper'),
+		metaitem('engine.spark_plug') * 4,
+		metaitem('engine.piston') * 4,
+		metaitem('engine.crankshaft'),
+		ore('gearSteel') * 2,
+		ore('pipeHugeFluidSteel'),
+])
+
+recipemap('assembler').recipeBuilder()
+		.inputs(metaitem('hull.Mv'))
+		.inputs(ore('springCopper'))
+		.inputs(ore('springSmallCopper'))
+		.inputs(ore('circuitMv'))
+		.inputs(metaitem('engine.spark_plug') * 4)
+		.inputs(metaitem('engine.piston') * 4)
+		.inputs(metaitem('engine.crankshaft'))
+		.inputs(ore('gearAluminium') * 2)
+		.inputs(ore('pipeHugeFluidAluminium'))
+		.outputs(metaitem('combustion_generator.mv'))
+		.EUt(30)
+		.duration(600)
+		.buildAndRegister()
+
+RecyclingHelper.handleRecycling(metaitem('combustion_generator.mv'), [
+		metaitem('hull.Mv'),
+		ore('springCopper'),
+		ore('springSmallCopper'),
+		metaitem('engine.spark_plug') * 4,
+		metaitem('engine.piston') * 4,
+		metaitem('engine.crankshaft'),
+		ore('gearAluminium') * 2,
+		ore('pipeHugeFluidAluminium'),
+])
+
+recipemap('assembler').recipeBuilder()
+		.inputs(metaitem('hull.Hv'))
+		.inputs(ore('springCopper'))
+		.inputs(ore('springSmallCopper'))
+		.inputs(ore('circuitHv'))
+		.inputs(metaitem('engine.spark_plug') * 4)
+		.inputs(metaitem('engine.piston') * 4)
+		.inputs(metaitem('engine.crankshaft'))
+		.inputs(ore('gearStainlessSteel') * 2)
+		.inputs(ore('pipeHugeFluidStainlessSteel'))
+		.outputs(metaitem('combustion_generator.hv'))
+		.EUt(30)
+		.duration(600)
+		.buildAndRegister()
+
+RecyclingHelper.handleRecycling(metaitem('combustion_generator.hv'), [
+		metaitem('hull.Hv'),
+		ore('springCopper'),
+		ore('springSmallCopper'),
+		metaitem('engine.spark_plug') * 4,
+		metaitem('engine.piston') * 4,
+		metaitem('engine.crankshaft'),
+		ore('gearStainlessSteel') * 2,
+		ore('pipeHugeFluidStainlessSteel'),
 ])
